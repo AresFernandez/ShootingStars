@@ -14,6 +14,7 @@
 		EF8B22B5263B24E8001093FB /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B22B4263B24E8001093FB /* GameViewController.swift */; };
 		EF8B22B8263B24E8001093FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF8B22B6263B24E8001093FB /* Main.storyboard */; };
 		EF8B22BA263B24E9001093FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8B22B9263B24E9001093FB /* Assets.xcassets */; };
+		EF958FCD2641C66C009807DB /* SpaceShipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF958FCC2641C66C009807DB /* SpaceShipModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		EF8B22B7263B24E8001093FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF8B22B9263B24E9001093FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF8B22BB263B24E9001093FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF958FCC2641C66C009807DB /* SpaceShipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShipModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				EF8B22B6263B24E8001093FB /* Main.storyboard */,
 				EF8B22B9263B24E9001093FB /* Assets.xcassets */,
 				EF8B22BB263B24E9001093FB /* Info.plist */,
+				EF958FCC2641C66C009807DB /* SpaceShipModel.swift */,
 			);
 			path = ShootingStars;
 			sourceTree = "<group>";
@@ -77,6 +80,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF8B22BE263B24E9001093FB /* Build configuration list for PBXNativeTarget "ShootingStars" */;
 			buildPhases = (
+				EFDEB5D72641AF2F007D7175 /* ShellScript */,
 				EF8B22A5263B24E8001093FB /* Sources */,
 				EF8B22A6263B24E8001093FB /* Frameworks */,
 				EF8B22A7263B24E8001093FB /* Resources */,
@@ -136,11 +140,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EFDEB5D72641AF2F007D7175 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EF8B22A5263B24E8001093FB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF958FCD2641C66C009807DB /* SpaceShipModel.swift in Sources */,
 				EF8B22B3263B24E8001093FB /* GameScene.swift in Sources */,
 				EF8B22B5263B24E8001093FB /* GameViewController.swift in Sources */,
 				EF8B22AD263B24E8001093FB /* AppDelegate.swift in Sources */,
