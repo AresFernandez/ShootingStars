@@ -15,6 +15,7 @@
 		EF8B22B8263B24E8001093FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF8B22B6263B24E8001093FB /* Main.storyboard */; };
 		EF8B22BA263B24E9001093FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8B22B9263B24E9001093FB /* Assets.xcassets */; };
 		EF958FCD2641C66C009807DB /* SpaceShipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF958FCC2641C66C009807DB /* SpaceShipModel.swift */; };
+		EFBDDA1A264AFD5F00832626 /* Stars.sks in Resources */ = {isa = PBXBuildFile; fileRef = EFBDDA19264AFD5F00832626 /* Stars.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		EF8B22B9263B24E9001093FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF8B22BB263B24E9001093FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF958FCC2641C66C009807DB /* SpaceShipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShipModel.swift; sourceTree = "<group>"; };
+		EFBDDA19264AFD5F00832626 /* Stars.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Stars.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				EF8B22B9263B24E9001093FB /* Assets.xcassets */,
 				EF8B22BB263B24E9001093FB /* Info.plist */,
 				EF958FCC2641C66C009807DB /* SpaceShipModel.swift */,
+				EFBDDA19264AFD5F00832626 /* Stars.sks */,
 			);
 			path = ShootingStars;
 			sourceTree = "<group>";
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFBDDA1A264AFD5F00832626 /* Stars.sks in Resources */,
 				EF0E74BE264AF1F500FFD63C /* GameScene.sks in Resources */,
 				EF8B22B8263B24E8001093FB /* Main.storyboard in Resources */,
 				EF8B22BA263B24E9001093FB /* Assets.xcassets in Resources */,

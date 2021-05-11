@@ -18,8 +18,16 @@ class GameScene: SKScene {
     private var lastTime: Double = 0
 
     override func didMove(to view: SKView) {
-        self.backgroundColor = .darkGray
-        print(self.size.width)
+        self.backgroundColor = .black
+
+        if let stars = SKEmitterNode(fileNamed: "Stars") {
+            stars.position.x = self.size.width/2 + 10
+            stars.position.y = 0
+            stars.zPosition = -1
+            stars.advanceSimulationTime(10)
+            addChild(stars)
+        }
+
         self.spaceship.position = CGPoint(x: -self.size.width * 0.45, y: 0)
         desiredPosition = self.spaceship.position
         self.addChild(self.spaceship)
