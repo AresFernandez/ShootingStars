@@ -12,10 +12,10 @@ class SpaceShip: SKSpriteNode {
     var upgradeLevel: Int
     var lifes: Int
 
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: <#T##SKTexture?#>, color: <#T##UIColor#>, size: <#T##CGSize#>)
-        self.upgradeLevel = 0
-        self.lifes = 3
+    init(texture: SKTexture?, color: UIColor, size: CGSize, upgradeLevel: Int, lifes: Int) {
+        self.upgradeLevel = upgradeLevel
+        self.lifes = lifes
+        super.init(texture: texture, color: color, size: size)
     }
 
     required init?(coder aDecoder: NSCoder) {
