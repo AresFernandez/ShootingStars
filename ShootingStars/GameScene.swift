@@ -11,11 +11,15 @@ import GameplayKit
 class GameScene: SKScene {
 
     var spaceship: SpaceShip = SpaceShip(texture: SKTexture(imageNamed: "ship1"), color: UIColor.white,
-                                         size: CGSize(width: 91, height: 42), upgradeLevel: 0, lifes: 3)
+                                         size: CGSize(width: 91, height: 42),
+                                         upgradeLevel: 0, lifes: 3, shotCadency: 0.5)
 
     private var desiredPosition: CGPoint = CGPoint(x: 0, y: 0)
 
     private var lastTime: Double = 0
+    private var lastShot: Double = 0
+
+    private var isShooting: Bool = false
 
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
@@ -37,6 +41,7 @@ class GameScene: SKScene {
         if let touch = touches.first {
             self.desiredPosition.y = touch.location(in: self).y
             self.desiredPosition.x = touch.location(in: self).x
+            isShooting = true
         }
     }
 
@@ -51,6 +56,7 @@ class GameScene: SKScene {
         if let touch = touches.first {
             self.desiredPosition.y = touch.location(in: self).y
             self.desiredPosition.x = touch.location(in: self).x
+            isShooting = false
         }
     }
 
@@ -58,11 +64,15 @@ class GameScene: SKScene {
         if let touch = touches.first {
             self.desiredPosition.y = touch.location(in: self).y
             self.desiredPosition.x = touch.location(in: self).x
+            isShooting = false
         }
     }
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        self.cleanPastShoots()
+
+        // SpaceshipMovement
         self.spaceship.position.y += (self.desiredPosition.y - self.spaceship.position.y) *
             (CGFloat(currentTime) - CGFloat(lastTime)) * 10
         self.spaceship.position.x += (self.desiredPosition.x - self.spaceship.position.x) *
@@ -81,6 +91,23 @@ class GameScene: SKScene {
         if self.spaceship.position.x < -self.size.height/2 + 350 {
             self.spaceship.position.x = -self.size.height/2 + 350
         }
+
+        // Spaceship Shooting
+        lastShot += (currentTime - lastTime)
+        if isShooting && lastShot > self.spaceship.shotCadency {
+            self.createShoot()
+            lastShot = 0
+        }
+
         lastTime = currentTime
+    }
+
+    private func cleanPastShoots() {
+        for node in self.children {
+            guard node.name == "shot" else { continue }
+            if node.position.x > self.size.height/2 + 100 || node.position.x < -self.size.height/2 - 100 {
+                node.removeFromParent()
+            }
+        }
     }
 }
