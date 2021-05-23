@@ -42,7 +42,7 @@ extension GameScene {
         enemy.zPosition = 1
         enemy.size = CGSize(width: enemy.size.width/2, height: enemy.size.height/2)
         enemy.physicsBody = SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
-        enemy.physicsBody?.velocity = CGVector(dx: -100, dy: 0)
+        enemy.physicsBody?.velocity = CGVector(dx: -100 - (self.currentScore * 2), dy: 0)
         enemy.physicsBody?.affectedByGravity = false
         enemy.physicsBody?.linearDamping = 0
         enemy.physicsBody?.categoryBitMask = 0x00000100
