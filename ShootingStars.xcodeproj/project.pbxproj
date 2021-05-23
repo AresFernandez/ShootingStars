@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EF0E74BE264AF1F500FFD63C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EF0E74BD264AF1F500FFD63C /* GameScene.sks */; };
+		EF894C2C265A80E100BBD7DF /* GameScene+Collisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */; };
 		EF8B22AD263B24E8001093FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B22AC263B24E8001093FB /* AppDelegate.swift */; };
 		EF8B22B1263B24E8001093FB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = EF8B22B0263B24E8001093FB /* Actions.sks */; };
 		EF8B22B3263B24E8001093FB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B22B2263B24E8001093FB /* GameScene.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		EF0E74BD264AF1F500FFD63C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = ../../SpaceInvaders/SpaceInvaders/GameScene.sks; sourceTree = "<group>"; };
+		EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+Collisions.swift"; sourceTree = "<group>"; };
 		EF8B22A9263B24E8001093FB /* ShootingStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShootingStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8B22AC263B24E8001093FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF8B22B0263B24E8001093FB /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				EF8B22BB263B24E9001093FB /* Info.plist */,
 				EF958FCC2641C66C009807DB /* SpaceShipModel.swift */,
 				EFBDDA19264AFD5F00832626 /* Stars.sks */,
+				EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */,
 			);
 			path = ShootingStars;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				EF958FCD2641C66C009807DB /* SpaceShipModel.swift in Sources */,
 				EF8B22B3263B24E8001093FB /* GameScene.swift in Sources */,
 				EFDA36E22656C96F002B81B2 /* GameScene+Prefabs.swift in Sources */,
+				EF894C2C265A80E100BBD7DF /* GameScene+Collisions.swift in Sources */,
 				EF8B22B5263B24E8001093FB /* GameViewController.swift in Sources */,
 				EF8B22AD263B24E8001093FB /* AppDelegate.swift in Sources */,
 			);

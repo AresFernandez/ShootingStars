@@ -24,6 +24,11 @@ class GameScene: SKScene {
 
     private var isShooting: Bool = false
 
+    var currentScore: Int = 0
+    var scoreLabel: SKLabelNode!
+
+    var enemyTimer: Timer?
+
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
 
@@ -35,15 +40,33 @@ class GameScene: SKScene {
             addChild(stars)
         }
 
-        self.botTerrain.position = CGPoint(x: 0, y: -self.size.height * 0.17)
+        self.botTerrain.position = CGPoint(x: 0, y: -self.size.height * 0.18)
         self.addChild(self.botTerrain)
 
-        self.topTerrain.position = CGPoint(x: 0, y: self.size.height * 0.17)
+        self.topTerrain.position = CGPoint(x: 0, y: self.size.height * 0.18)
         self.addChild(self.topTerrain)
 
         self.spaceship.position = CGPoint(x: -self.size.width * 0.45, y: 0)
+        self.spaceship.name = "spaceship"
         desiredPosition = self.spaceship.position
         self.addChild(self.spaceship)
+        self.spaceship.physicsBody = SKPhysicsBody(texture: self.spaceship.texture!, size: self.spaceship.size)
+        self.spaceship.physicsBody?.categoryBitMask = 0x00000001
+        self.spaceship.physicsBody?.collisionBitMask = 0x00000000
+        self.spaceship.physicsBody?.contactTestBitMask = 0x00000100
+        self.spaceship.physicsBody?.affectedByGravity = false
+        self.spaceship.physicsBody?.isDynamic = false
+
+        self.physicsWorld.contactDelegate = self
+
+        self.scoreLabel = SKLabelNode(text: "SCORE: 0")
+        self.scoreLabel.position = CGPoint(x: 0, y: -self.size.width * 0.15)
+        self.scoreLabel.zPosition = 2
+        self.addChild(self.scoreLabel)
+
+        self.enemyTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self,
+                                               selector: #selector(addEnemy), userInfo: nil, repeats: true)
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,10 +136,16 @@ class GameScene: SKScene {
 
     private func cleanPastShoots() {
         for node in self.children {
-            guard node.name == "shot" else { continue }
-            if node.position.x > self.size.height/2 + 100 || node.position.x < -self.size.height/2 - 100 {
+            guard node.name == "shot" || node.name == "enemy" else { continue }
+            if node.position.x > self.size.height/2 + 200 || node.position.x < -self.size.height/2 - 200 {
                 node.removeFromParent()
             }
         }
+    }
+
+    @objc
+    private func addEnemy() {
+        self.createEnemy(at: CGPoint(x: Int(self.size.height/2 - 260), y:
+                                        Int.random(in: Int(-self.size.width/2) + 200..<Int(self.size.width/2 - 200))))
     }
 }
