@@ -14,6 +14,9 @@ class GameScene: SKScene {
                                          size: CGSize(width: 91, height: 42),
                                          upgradeLevel: 0, lifes: 3, shotCadency: 0.5)
 
+    var botTerrain: SKSpriteNode = SKSpriteNode(imageNamed: "BotTerrain")
+    var topTerrain: SKSpriteNode = SKSpriteNode(imageNamed: "TopTerrain")
+
     private var desiredPosition: CGPoint = CGPoint(x: 0, y: 0)
 
     private var lastTime: Double = 0
@@ -31,6 +34,12 @@ class GameScene: SKScene {
             stars.advanceSimulationTime(10)
             addChild(stars)
         }
+
+        self.botTerrain.position = CGPoint(x: 0, y: -self.size.height * 0.17)
+        self.addChild(self.botTerrain)
+
+        self.topTerrain.position = CGPoint(x: 0, y: self.size.height * 0.17)
+        self.addChild(self.topTerrain)
 
         self.spaceship.position = CGPoint(x: -self.size.width * 0.45, y: 0)
         desiredPosition = self.spaceship.position
@@ -88,8 +97,8 @@ class GameScene: SKScene {
         if self.spaceship.position.x > self.size.height/2 - 350 {
             self.spaceship.position.x = self.size.height/2 - 350
         }
-        if self.spaceship.position.x < -self.size.height/2 + 350 {
-            self.spaceship.position.x = -self.size.height/2 + 350
+        if self.spaceship.position.x < -self.size.height/2 + 310 {
+            self.spaceship.position.x = -self.size.height/2 + 310
         }
 
         // Spaceship Shooting
