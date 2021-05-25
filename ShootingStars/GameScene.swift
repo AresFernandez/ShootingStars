@@ -33,6 +33,9 @@ class GameScene: SKScene {
     var enemyTimer: Timer?
 
     var gameOver: Bool = false
+    var enemyTimer1: Bool = false
+    var enemyTimer2: Bool = false
+    var enemyTimer3: Bool = false
 
     override func didMove(to view: SKView) {
         self.initializeGame()
@@ -78,6 +81,23 @@ class GameScene: SKScene {
 
         if gameOver {
             return
+        }
+
+        if self.currentScore >= 150 && !enemyTimer3 {
+            self.enemyTimer?.invalidate()
+            self.enemyTimer = Timer.scheduledTimer(timeInterval: 0.25, target: self,
+                                                   selector: #selector(addEnemy), userInfo: nil, repeats: true)
+            enemyTimer3 = true
+        } else if self.currentScore >= 100 && !enemyTimer2 {
+            self.enemyTimer?.invalidate()
+            self.enemyTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self,
+                                                   selector: #selector(addEnemy), userInfo: nil, repeats: true)
+            enemyTimer2 = true
+        } else if self.currentScore >= 50 && !enemyTimer1 {
+            self.enemyTimer?.invalidate()
+            self.enemyTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                                   selector: #selector(addEnemy), userInfo: nil, repeats: true)
+            enemyTimer1 = true
         }
 
         self.cleanPastShoots()
