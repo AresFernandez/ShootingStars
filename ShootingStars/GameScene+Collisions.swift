@@ -18,7 +18,7 @@ extension GameScene: SKPhysicsContactDelegate {
 
         let oneNodeIsEnemy = nameA.hasPrefix("enemy") || nameB.hasPrefix("enemy")
         let oneNodeIsShot = nameA == "shot" || nameB == "shot"
-        // let oneNodeIsSpaceShip = nameA == "spaceship" || nameB == "spaceship"
+        let oneNodeIsSpaceShip = nameA == "spaceship" || nameB == "spaceship"
 
         if oneNodeIsEnemy && oneNodeIsShot {
             nodeA.removeFromParent()
@@ -27,7 +27,25 @@ extension GameScene: SKPhysicsContactDelegate {
             self.currentScore += 1
             self.scoreLabel.text = "SCORE: \(self.currentScore)"
 
-            // run(self.boomSound)
+            return
+        }
+
+        if oneNodeIsEnemy && oneNodeIsSpaceShip {
+
+            if nameA == "enemy" {
+                nodeA.removeFromParent()
+            } else {
+                nodeB.removeFromParent()
+            }
+
+            self.spaceship.lifes -= 1
+            self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+
+            if self.spaceship.lifes <= 0 {
+                self.gameOver = true
+                self.clearEverything()
+                self.createGameOverStats()
+            }
 
             return
         }
