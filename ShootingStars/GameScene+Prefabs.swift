@@ -53,4 +53,26 @@ extension GameScene {
         addChild(enemy)
 
     }
+
+    func createMeteorite(at position: CGPoint) {
+
+        let meteoriteFlyAction = SKAction.repeatForever(SKAction.rotate(byAngle: 0.15, duration: 150))
+
+        let meteorite = SKSpriteNode(imageNamed: "meteorite")
+        meteorite.position = position
+        meteorite.name = "meteorite"
+        meteorite.zPosition = 1
+        meteorite.size = CGSize(width: meteorite.size.width, height: meteorite.size.height)
+        meteorite.physicsBody = SKPhysicsBody(texture: meteorite.texture!, size: meteorite.size)
+        meteorite.physicsBody?.velocity = CGVector(dx: -100 - (self.currentScore), dy: 0)
+        meteorite.physicsBody?.affectedByGravity = false
+        meteorite.physicsBody?.linearDamping = 0
+        meteorite.physicsBody?.categoryBitMask = 0x00001000
+        meteorite.physicsBody?.collisionBitMask = 0x00000000
+        meteorite.physicsBody?.contactTestBitMask = 0x00000111
+
+        meteorite.run(meteoriteFlyAction)
+        addChild(meteorite)
+
+    }
 }

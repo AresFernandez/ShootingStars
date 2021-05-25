@@ -32,6 +32,8 @@ class GameScene: SKScene {
 
     var enemyTimer: Timer?
 
+    var enemyCounter: Int = 0
+
     var gameOver: Bool = false
     var enemyTimer1: Bool = false
     var enemyTimer2: Bool = false
@@ -143,6 +145,8 @@ class GameScene: SKScene {
             addChild(stars)
         }
 
+        enemyCounter = 0
+
         self.botTerrain.position = CGPoint(x: 0, y: -self.size.height * 0.18)
         self.addChild(self.botTerrain)
 
@@ -156,7 +160,7 @@ class GameScene: SKScene {
         self.spaceship.physicsBody = SKPhysicsBody(texture: self.spaceship.texture!, size: self.spaceship.size)
         self.spaceship.physicsBody?.categoryBitMask = 0x00000001
         self.spaceship.physicsBody?.collisionBitMask = 0x00000000
-        self.spaceship.physicsBody?.contactTestBitMask = 0x00000100
+        self.spaceship.physicsBody?.contactTestBitMask = 0x00001100
         self.spaceship.physicsBody?.affectedByGravity = false
         self.spaceship.physicsBody?.isDynamic = false
 
@@ -222,7 +226,15 @@ class GameScene: SKScene {
 
     @objc
     private func addEnemy() {
-        self.createEnemy(at: CGPoint(x: Int(self.size.height/2 - 260), y:
+
+        if enemyCounter >= 6 {
+            self.createMeteorite(at: CGPoint(x: Int(self.size.height/2 - 160), y:
+                                 Int.random(in: Int(-self.size.width/2) + 200..<Int(self.size.width/2 - 200))))
+            enemyCounter = 0
+        } else {
+            self.createEnemy(at: CGPoint(x: Int(self.size.height/2 - 260), y:
                                         Int.random(in: Int(-self.size.width/2) + 200..<Int(self.size.width/2 - 200))))
+            enemyCounter += 1
+        }
     }
 }

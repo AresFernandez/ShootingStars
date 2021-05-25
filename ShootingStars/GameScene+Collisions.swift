@@ -19,6 +19,7 @@ extension GameScene: SKPhysicsContactDelegate {
         let oneNodeIsEnemy = nameA.hasPrefix("enemy") || nameB.hasPrefix("enemy")
         let oneNodeIsShot = nameA == "shot" || nameB == "shot"
         let oneNodeIsSpaceShip = nameA == "spaceship" || nameB == "spaceship"
+        let oneNodeIsMeteorite = nameA == "meteorite" || nameB == "meteorite"
 
         if oneNodeIsEnemy && oneNodeIsShot {
             nodeA.removeFromParent()
@@ -47,6 +48,43 @@ extension GameScene: SKPhysicsContactDelegate {
                 self.createGameOverStats()
             }
 
+            return
+        }
+
+        if oneNodeIsMeteorite && oneNodeIsSpaceShip {
+            if nameA == "meteorite" {
+                nodeA.removeFromParent()
+            } else {
+                nodeB.removeFromParent()
+            }
+
+            self.spaceship.lifes -= 1
+            self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+
+            if self.spaceship.lifes <= 0 {
+                self.gameOver = true
+                self.clearEverything()
+                self.createGameOverStats()
+            }
+
+            return
+        }
+
+        if oneNodeIsShot && oneNodeIsMeteorite {
+            if nameA == "shot" {
+                nodeA.removeFromParent()
+            } else {
+                nodeB.removeFromParent()
+            }
+            return
+        }
+
+        if oneNodeIsMeteorite && oneNodeIsEnemy {
+            if nameA == "enemy" {
+                nodeA.removeFromParent()
+            } else {
+                nodeB.removeFromParent()
+            }
             return
         }
     }
