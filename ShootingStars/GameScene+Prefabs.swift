@@ -56,7 +56,7 @@ extension GameScene {
 
     func createMeteorite(at position: CGPoint) {
 
-        let meteoriteFlyAction = SKAction.repeatForever(SKAction.rotate(byAngle: 0.15, duration: 150))
+        let meteoriteFlyAction = SKAction.repeatForever(SKAction.rotate(byAngle: 0.15, duration: 1))
 
         let meteorite = SKSpriteNode(imageNamed: "meteorite")
         meteorite.position = position
