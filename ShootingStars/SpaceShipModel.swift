@@ -20,6 +20,19 @@ class SpaceShip: SKSpriteNode {
         super.init(texture: texture, color: color, size: size)
     }
 
+    func refreshTexture() {
+        switch self.upgradeLevel {
+        case 0:
+            self.texture = SKTexture(imageNamed: "ship1")
+        case 1:
+            self.texture = SKTexture(imageNamed: "ship2")
+        case 2:
+            self.texture = SKTexture(imageNamed: "ship3")
+        default:
+            self.texture = SKTexture(imageNamed: "ship1")
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

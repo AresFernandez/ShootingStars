@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 extension GameScene: SKPhysicsContactDelegate {
+    // swiftlint:disable cyclomatic_complexity
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -20,6 +21,7 @@ extension GameScene: SKPhysicsContactDelegate {
         let oneNodeIsShot = nameA == "shot" || nameB == "shot"
         let oneNodeIsSpaceShip = nameA == "spaceship" || nameB == "spaceship"
         let oneNodeIsMeteorite = nameA == "meteorite" || nameB == "meteorite"
+        let oneNodeIsPowerUp = nameA == "powerUp" || nameB == "powerUp"
 
         if oneNodeIsEnemy && oneNodeIsShot {
             nodeA.removeFromParent()
@@ -27,6 +29,22 @@ extension GameScene: SKPhysicsContactDelegate {
 
             self.currentScore += 1
             self.scoreLabel.text = "SCORE: \(self.currentScore)"
+
+            return
+        }
+
+        if oneNodeIsPowerUp && oneNodeIsSpaceShip {
+
+            if nameA == "powerUp" {
+                nodeA.removeFromParent()
+            } else {
+                nodeB.removeFromParent()
+            }
+
+            if self.spaceship.upgradeLevel < 2 {
+                self.spaceship.upgradeLevel += 1
+                self.spaceship.refreshTexture()
+            }
 
             return
         }
@@ -39,13 +57,20 @@ extension GameScene: SKPhysicsContactDelegate {
                 nodeB.removeFromParent()
             }
 
-            self.spaceship.lifes -= 1
-            self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+            if self.spaceship.upgradeLevel < 2 {
+                self.spaceship.lifes -= 1
+                self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+            }
 
             if self.spaceship.lifes <= 0 {
                 self.gameOver = true
                 self.clearEverything()
                 self.createGameOverStats()
+            }
+
+            if self.spaceship.upgradeLevel > 0 {
+                self.spaceship.upgradeLevel -= 1
+                self.spaceship.refreshTexture()
             }
 
             return
@@ -58,13 +83,20 @@ extension GameScene: SKPhysicsContactDelegate {
                 nodeB.removeFromParent()
             }
 
-            self.spaceship.lifes -= 1
-            self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+            if self.spaceship.upgradeLevel < 2 {
+                self.spaceship.lifes -= 1
+                self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+            }
 
             if self.spaceship.lifes <= 0 {
                 self.gameOver = true
                 self.clearEverything()
                 self.createGameOverStats()
+            }
+
+            if self.spaceship.upgradeLevel > 0 {
+                self.spaceship.upgradeLevel -= 1
+                self.spaceship.refreshTexture()
             }
 
             return
@@ -88,4 +120,5 @@ extension GameScene: SKPhysicsContactDelegate {
             return
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 }

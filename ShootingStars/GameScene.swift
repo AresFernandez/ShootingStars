@@ -31,6 +31,7 @@ class GameScene: SKScene {
     var gameOverLabel: SKLabelNode!
 
     var enemyTimer: Timer?
+    var powerUpTimer: Timer?
 
     var enemyCounter: Int = 0
 
@@ -160,7 +161,7 @@ class GameScene: SKScene {
         self.spaceship.physicsBody = SKPhysicsBody(texture: self.spaceship.texture!, size: self.spaceship.size)
         self.spaceship.physicsBody?.categoryBitMask = 0x00000001
         self.spaceship.physicsBody?.collisionBitMask = 0x00000000
-        self.spaceship.physicsBody?.contactTestBitMask = 0x00001100
+        self.spaceship.physicsBody?.contactTestBitMask = 0x00011100
         self.spaceship.physicsBody?.affectedByGravity = false
         self.spaceship.physicsBody?.isDynamic = false
 
@@ -180,14 +181,20 @@ class GameScene: SKScene {
         self.lifesLabel.fontName = "CopperplateGothic Bold"
         self.addChild(self.lifesLabel)
 
+        self.spaceship.upgradeLevel = 0
+        self.spaceship.refreshTexture()
+
         self.enemyTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self,
                                                selector: #selector(addEnemy), userInfo: nil, repeats: true)
+
+        self.powerUpTimer = Timer.scheduledTimer(timeInterval: 30, target: self,
+                                               selector: #selector(addPowerUp), userInfo: nil, repeats: true)
 
     }
 
     private func cleanPastShoots() {
         for node in self.children {
-            guard node.name == "shot" || node.name == "enemy" else { continue }
+            guard node.name == "shot" || node.name == "enemy" || node.name == "meteorite" || node.name == "powerUp" else { continue }
             if node.position.x > self.size.height/2 + 200 || node.position.x < -self.size.height/2 - 200 {
                 node.removeFromParent()
             }
@@ -236,5 +243,11 @@ class GameScene: SKScene {
                                         Int.random(in: Int(-self.size.width/2) + 200..<Int(self.size.width/2 - 200))))
             enemyCounter += 1
         }
+    }
+
+    @objc
+    private func addPowerUp() {
+        self.createPowerUp(at: CGPoint(x: Int(self.size.height/2 - 260), y:
+                                    Int.random(in: Int(-self.size.width/2) + 200..<Int(self.size.width/2 - 200))))
     }
 }

@@ -12,19 +12,50 @@ import GameplayKit
 extension GameScene {
 
     func createShoot() {
-        let sprite = SKSpriteNode(imageNamed: "shot")
-        sprite.position = self.spaceship.position
-        sprite.name = "shot"
-        sprite.zPosition = 1
-        sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y)
-        addChild(sprite)
-        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
-        sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
-        sprite.physicsBody?.affectedByGravity = false
-        sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.categoryBitMask = 0x00000010
-        sprite.physicsBody?.collisionBitMask = 0x00000000
-        sprite.physicsBody?.contactTestBitMask = 0x00000100
+        if self.spaceship.upgradeLevel == 0 {
+            let sprite = SKSpriteNode(imageNamed: "shot")
+            sprite.position = self.spaceship.position
+            sprite.name = "shot"
+            sprite.zPosition = 1
+            sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y)
+            addChild(sprite)
+            sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+            sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+            sprite.physicsBody?.affectedByGravity = false
+            sprite.physicsBody?.linearDamping = 0
+            sprite.physicsBody?.categoryBitMask = 0x00000010
+            sprite.physicsBody?.collisionBitMask = 0x00000000
+            sprite.physicsBody?.contactTestBitMask = 0x00000100
+        } else {
+            let sprite = SKSpriteNode(imageNamed: "shot")
+            sprite.position = self.spaceship.position
+            sprite.name = "shot"
+            sprite.zPosition = 1
+            sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y - 10)
+            addChild(sprite)
+            sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+            sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+            sprite.physicsBody?.affectedByGravity = false
+            sprite.physicsBody?.linearDamping = 0
+            sprite.physicsBody?.categoryBitMask = 0x00000010
+            sprite.physicsBody?.collisionBitMask = 0x00000000
+            sprite.physicsBody?.contactTestBitMask = 0x00000100
+
+            let sprite2 = SKSpriteNode(imageNamed: "shot")
+            sprite2.position = self.spaceship.position
+            sprite2.name = "shot"
+            sprite2.zPosition = 1
+            sprite2.position = CGPoint(x: sprite2.position.x + 50.0, y: sprite2.position.y + 10)
+            addChild(sprite2)
+            sprite2.physicsBody = SKPhysicsBody(texture: sprite2.texture!, size: sprite2.size)
+            sprite2.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+            sprite2.physicsBody?.affectedByGravity = false
+            sprite2.physicsBody?.linearDamping = 0
+            sprite2.physicsBody?.categoryBitMask = 0x00000010
+            sprite2.physicsBody?.collisionBitMask = 0x00000000
+            sprite2.physicsBody?.contactTestBitMask = 0x00000100
+        }
+
     }
 
     func createEnemy(at position: CGPoint) {
@@ -75,4 +106,34 @@ extension GameScene {
         addChild(meteorite)
 
     }
+
+    func createPowerUp(at position: CGPoint) {
+
+        let powerUpAnimation = [SKTexture(imageNamed: "powerup1"), SKTexture(imageNamed: "powerup2"),
+                              SKTexture(imageNamed: "powerup3"), SKTexture(imageNamed: "powerup4"),
+                              SKTexture(imageNamed: "powerup5"), SKTexture(imageNamed: "powerup6"),
+                              SKTexture(imageNamed: "powerup7"), SKTexture(imageNamed: "powerup8")]
+        var powerUpAction: SKAction
+        let powerUpKey = "powerUp"
+
+        powerUpAction = SKAction.repeatForever(SKAction.animate(with: powerUpAnimation, timePerFrame: 0.15))
+
+        let powerUp = SKSpriteNode(imageNamed: "powerup1")
+        powerUp.position = position
+        powerUp.name = "powerUp"
+        powerUp.zPosition = 2
+        powerUp.size = CGSize(width: powerUp.size.width/2, height: powerUp.size.height/2)
+        powerUp.physicsBody = SKPhysicsBody(texture: powerUp.texture!, size: powerUp.size)
+        powerUp.physicsBody?.velocity = CGVector(dx: -125, dy: 0)
+        powerUp.physicsBody?.affectedByGravity = false
+        powerUp.physicsBody?.linearDamping = 0
+        powerUp.physicsBody?.categoryBitMask = 0x00010000
+        powerUp.physicsBody?.collisionBitMask = 0x00000000
+        powerUp.physicsBody?.contactTestBitMask = 0x00000001
+
+        powerUp.run(powerUpAction, withKey: powerUpKey)
+        addChild(powerUp)
+
+    }
+
 }
