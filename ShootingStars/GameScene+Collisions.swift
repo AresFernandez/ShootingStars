@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 extension GameScene: SKPhysicsContactDelegate {
-    // swiftlint:disable cyclomatic_complexity
+
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -24,101 +24,99 @@ extension GameScene: SKPhysicsContactDelegate {
         let oneNodeIsPowerUp = nameA == "powerUp" || nameB == "powerUp"
 
         if oneNodeIsEnemy && oneNodeIsShot {
+            createExplosion(at: nodeA.position)
             nodeA.removeFromParent()
             nodeB.removeFromParent()
 
-            self.currentScore += 1
-            self.scoreLabel.text = "SCORE: \(self.currentScore)"
+            killEnemy()
 
             return
         }
 
         if oneNodeIsPowerUp && oneNodeIsSpaceShip {
 
-            if nameA == "powerUp" {
-                nodeA.removeFromParent()
-            } else {
-                nodeB.removeFromParent()
-            }
+            removeNodeByName(nodeA: nodeA, nodeB: nodeB, name: "powerUp")
 
-            if self.spaceship.upgradeLevel < 2 {
-                self.spaceship.upgradeLevel += 1
-                self.spaceship.refreshTexture()
-            }
+            pickPowerUp()
 
             return
         }
 
         if oneNodeIsEnemy && oneNodeIsSpaceShip {
+            createExplosion(at: nodeA.position)
+            removeNodeByName(nodeA: nodeA, nodeB: nodeB, name: "enemy")
 
-            if nameA == "enemy" {
-                nodeA.removeFromParent()
-            } else {
-                nodeB.removeFromParent()
-            }
-
-            if self.spaceship.upgradeLevel < 2 {
-                self.spaceship.lifes -= 1
-                self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
-            }
-
-            if self.spaceship.lifes <= 0 {
-                self.gameOver = true
-                self.clearEverything()
-                self.createGameOverStats()
-            }
-
-            if self.spaceship.upgradeLevel > 0 {
-                self.spaceship.upgradeLevel -= 1
-                self.spaceship.refreshTexture()
-            }
+            enemyCollidedPlayer()
 
             return
         }
 
         if oneNodeIsMeteorite && oneNodeIsSpaceShip {
-            if nameA == "meteorite" {
-                nodeA.removeFromParent()
-            } else {
-                nodeB.removeFromParent()
-            }
+            createExplosion(at: nodeA.position)
+            removeNodeByName(nodeA: nodeA, nodeB: nodeB, name: "meteorite")
 
-            if self.spaceship.upgradeLevel < 2 {
-                self.spaceship.lifes -= 1
-                self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
-            }
-
-            if self.spaceship.lifes <= 0 {
-                self.gameOver = true
-                self.clearEverything()
-                self.createGameOverStats()
-            }
-
-            if self.spaceship.upgradeLevel > 0 {
-                self.spaceship.upgradeLevel -= 1
-                self.spaceship.refreshTexture()
-            }
+            enemyCollidedPlayer()
 
             return
         }
 
         if oneNodeIsShot && oneNodeIsMeteorite {
-            if nameA == "shot" {
-                nodeA.removeFromParent()
-            } else {
-                nodeB.removeFromParent()
-            }
+            removeNodeByName(nodeA: nodeA, nodeB: nodeB, name: "shot")
             return
         }
 
         if oneNodeIsMeteorite && oneNodeIsEnemy {
-            if nameA == "enemy" {
-                nodeA.removeFromParent()
+            if nodeA.name == "enemy" {
+                createExplosion(at: nodeA.position)
             } else {
-                nodeB.removeFromParent()
+                createExplosion(at: nodeB.position)
             }
+
+            removeNodeByName(nodeA: nodeA, nodeB: nodeB, name: "enemy")
             return
         }
     }
-    // swiftlint:enable cyclomatic_complexity
+
+    func killEnemy() {
+        self.currentScore += 1
+        self.scoreLabel.text = "SCORE: \(self.currentScore)"
+    }
+
+    func pickPowerUp() {
+        if self.spaceship.upgradeLevel < 2 {
+            self.spaceship.upgradeLevel += 1
+            self.spaceship.refreshTexture()
+        } else {
+            self.spaceship.shotCadency *= 0.8
+            if self.spaceship.shotCadency < 0.2 {
+                self.spaceship.shotCadency = 0.2
+            }
+        }
+    }
+
+    func enemyCollidedPlayer() {
+        if self.spaceship.upgradeLevel < 2 {
+            self.spaceship.lifes -= 1
+            self.lifesLabel.text = "LIFES: \(self.spaceship.lifes)"
+        }
+
+        if self.spaceship.lifes <= 0 {
+            self.gameOver = true
+            self.clearEverything()
+            self.createGameOverStats()
+        }
+
+        if self.spaceship.upgradeLevel > 0 {
+            self.spaceship.upgradeLevel -= 1
+            self.spaceship.refreshTexture()
+        }
+    }
+
+    func removeNodeByName(nodeA: SKNode, nodeB: SKNode, name: String) {
+        if nodeA.name == name {
+            nodeA.removeFromParent()
+        } else {
+            nodeB.removeFromParent()
+        }
+    }
 }

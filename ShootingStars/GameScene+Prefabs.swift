@@ -13,49 +13,79 @@ extension GameScene {
 
     func createShoot() {
         if self.spaceship.upgradeLevel == 0 {
-            let sprite = SKSpriteNode(imageNamed: "shot")
-            sprite.position = self.spaceship.position
-            sprite.name = "shot"
-            sprite.zPosition = 1
-            sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y)
-            addChild(sprite)
-            sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
-            sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
-            sprite.physicsBody?.affectedByGravity = false
-            sprite.physicsBody?.linearDamping = 0
-            sprite.physicsBody?.categoryBitMask = 0x00000010
-            sprite.physicsBody?.collisionBitMask = 0x00000000
-            sprite.physicsBody?.contactTestBitMask = 0x00000100
+            createSingleShot()
         } else {
-            let sprite = SKSpriteNode(imageNamed: "shot")
-            sprite.position = self.spaceship.position
-            sprite.name = "shot"
-            sprite.zPosition = 1
-            sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y - 10)
-            addChild(sprite)
-            sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
-            sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
-            sprite.physicsBody?.affectedByGravity = false
-            sprite.physicsBody?.linearDamping = 0
-            sprite.physicsBody?.categoryBitMask = 0x00000010
-            sprite.physicsBody?.collisionBitMask = 0x00000000
-            sprite.physicsBody?.contactTestBitMask = 0x00000100
-
-            let sprite2 = SKSpriteNode(imageNamed: "shot")
-            sprite2.position = self.spaceship.position
-            sprite2.name = "shot"
-            sprite2.zPosition = 1
-            sprite2.position = CGPoint(x: sprite2.position.x + 50.0, y: sprite2.position.y + 10)
-            addChild(sprite2)
-            sprite2.physicsBody = SKPhysicsBody(texture: sprite2.texture!, size: sprite2.size)
-            sprite2.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
-            sprite2.physicsBody?.affectedByGravity = false
-            sprite2.physicsBody?.linearDamping = 0
-            sprite2.physicsBody?.categoryBitMask = 0x00000010
-            sprite2.physicsBody?.collisionBitMask = 0x00000000
-            sprite2.physicsBody?.contactTestBitMask = 0x00000100
+            createDoubleShot()
         }
 
+    }
+
+    func createSingleShot() {
+        let sprite = SKSpriteNode(imageNamed: "shot")
+        sprite.position = self.spaceship.position
+        sprite.name = "shot"
+        sprite.zPosition = 1
+        sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y)
+        addChild(sprite)
+        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+        sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+        sprite.physicsBody?.affectedByGravity = false
+        sprite.physicsBody?.linearDamping = 0
+        sprite.physicsBody?.categoryBitMask = 0x00000010
+        sprite.physicsBody?.collisionBitMask = 0x00000000
+        sprite.physicsBody?.contactTestBitMask = 0x00000100
+    }
+
+    func createDoubleShot() {
+        let sprite = SKSpriteNode(imageNamed: "shot")
+        sprite.position = self.spaceship.position
+        sprite.name = "shot"
+        sprite.zPosition = 1
+        sprite.position = CGPoint(x: sprite.position.x + 50.0, y: sprite.position.y - 10)
+        addChild(sprite)
+        sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
+        sprite.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+        sprite.physicsBody?.affectedByGravity = false
+        sprite.physicsBody?.linearDamping = 0
+        sprite.physicsBody?.categoryBitMask = 0x00000010
+        sprite.physicsBody?.collisionBitMask = 0x00000000
+        sprite.physicsBody?.contactTestBitMask = 0x00000100
+
+        let sprite2 = SKSpriteNode(imageNamed: "shot")
+        sprite2.position = self.spaceship.position
+        sprite2.name = "shot"
+        sprite2.zPosition = 1
+        sprite2.position = CGPoint(x: sprite2.position.x + 50.0, y: sprite2.position.y + 10)
+        addChild(sprite2)
+        sprite2.physicsBody = SKPhysicsBody(texture: sprite2.texture!, size: sprite2.size)
+        sprite2.physicsBody?.velocity = CGVector(dx: 500, dy: 0)
+        sprite2.physicsBody?.affectedByGravity = false
+        sprite2.physicsBody?.linearDamping = 0
+        sprite2.physicsBody?.categoryBitMask = 0x00000010
+        sprite2.physicsBody?.collisionBitMask = 0x00000000
+        sprite2.physicsBody?.contactTestBitMask = 0x00000100
+    }
+
+    func createExplosion(at position: CGPoint) {
+        let explosionAnimation = [SKTexture(imageNamed: "Explosion1_1"), SKTexture(imageNamed: "Explosion1_2"),
+                                  SKTexture(imageNamed: "Explosion1_3"), SKTexture(imageNamed: "Explosion1_4"),
+                                  SKTexture(imageNamed: "Explosion1_5"), SKTexture(imageNamed: "Explosion1_6"),
+                                  SKTexture(imageNamed: "Explosion1_7"), SKTexture(imageNamed: "Explosion1_8"),
+                                  SKTexture(imageNamed: "Explosion1_9"), SKTexture(imageNamed: "Explosion1_10"),
+                                  SKTexture(imageNamed: "Explosion1_11")]
+        var explosionAction: SKAction
+
+        explosionAction = SKAction.animate(with: explosionAnimation, timePerFrame: 0.1)
+
+        let explosion = SKSpriteNode(imageNamed: "Explosion1_1")
+        explosion.position = position
+        explosion.name = "explosion"
+        explosion.zPosition = 2
+
+        explosion.run(explosionAction) {
+            explosion.removeFromParent()
+        }
+        addChild(explosion)
     }
 
     func createEnemy(at position: CGPoint) {

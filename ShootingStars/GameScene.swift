@@ -15,9 +15,6 @@ class GameScene: SKScene {
                                          size: CGSize(width: 91, height: 42),
                                          upgradeLevel: 0, lifes: 3, shotCadency: 0.5)
 
-    var botTerrain: SKSpriteNode = SKSpriteNode(imageNamed: "BotTerrain")
-    var topTerrain: SKSpriteNode = SKSpriteNode(imageNamed: "TopTerrain")
-
     private var desiredPosition: CGPoint = CGPoint(x: 0, y: 0)
 
     private var lastTime: Double = 0
@@ -138,32 +135,14 @@ class GameScene: SKScene {
     func initializeGame() {
         self.backgroundColor = .black
 
-        if let stars = SKEmitterNode(fileNamed: "Stars") {
-            stars.position.x = self.size.width/2 + 10
-            stars.position.y = 0
-            stars.zPosition = -1
-            stars.advanceSimulationTime(10)
-            addChild(stars)
-        }
+        initializeParticles()
 
         enemyCounter = 0
+        enemyTimer1 = false
+        enemyTimer2 = false
+        enemyTimer3 = false
 
-        self.botTerrain.position = CGPoint(x: 0, y: -self.size.height * 0.18)
-        self.addChild(self.botTerrain)
-
-        self.topTerrain.position = CGPoint(x: 0, y: self.size.height * 0.18)
-        self.addChild(self.topTerrain)
-
-        self.spaceship.position = CGPoint(x: -self.size.width * 0.45, y: 0)
-        self.spaceship.name = "spaceship"
-        desiredPosition = self.spaceship.position
-        self.addChild(self.spaceship)
-        self.spaceship.physicsBody = SKPhysicsBody(texture: self.spaceship.texture!, size: self.spaceship.size)
-        self.spaceship.physicsBody?.categoryBitMask = 0x00000001
-        self.spaceship.physicsBody?.collisionBitMask = 0x00000000
-        self.spaceship.physicsBody?.contactTestBitMask = 0x00011100
-        self.spaceship.physicsBody?.affectedByGravity = false
-        self.spaceship.physicsBody?.isDynamic = false
+        initializeSpaceShip()
 
         self.physicsWorld.contactDelegate = self
 
@@ -184,17 +163,59 @@ class GameScene: SKScene {
         self.spaceship.upgradeLevel = 0
         self.spaceship.refreshTexture()
 
-        self.enemyTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self,
+        self.enemyTimer = Timer.scheduledTimer(timeInterval: 2, target: self,
                                                selector: #selector(addEnemy), userInfo: nil, repeats: true)
 
+        self.powerUpTimer?.invalidate()
         self.powerUpTimer = Timer.scheduledTimer(timeInterval: 30, target: self,
                                                selector: #selector(addPowerUp), userInfo: nil, repeats: true)
 
     }
 
+    func initializeParticles() {
+        if let stars = SKEmitterNode(fileNamed: "Stars") {
+            stars.position.x = self.size.width/2 + 10
+            stars.position.y = 0
+            stars.zPosition = -1
+            stars.advanceSimulationTime(10)
+            addChild(stars)
+        }
+
+        if let botTerrain = SKEmitterNode(fileNamed: "BotTerrain") {
+            botTerrain.position.x = self.size.width/2 + 550
+            botTerrain.position.y = -self.size.height * 0.18
+            botTerrain.zPosition = 1
+            botTerrain.advanceSimulationTime(10)
+            addChild(botTerrain)
+        }
+
+        if let topTerrain = SKEmitterNode(fileNamed: "TopTerrain") {
+            topTerrain.position.x = self.size.width/2 + 550
+            topTerrain.position.y = self.size.height * 0.18
+            topTerrain.zPosition = 1
+            topTerrain.advanceSimulationTime(10)
+            addChild(topTerrain)
+        }
+    }
+
+    func initializeSpaceShip() {
+        self.spaceship.position = CGPoint(x: -self.size.width * 0.45, y: 0)
+        self.spaceship.name = "spaceship"
+        desiredPosition = self.spaceship.position
+        self.addChild(self.spaceship)
+        self.spaceship.shotCadency = 0.5
+        self.spaceship.physicsBody = SKPhysicsBody(texture: self.spaceship.texture!, size: self.spaceship.size)
+        self.spaceship.physicsBody?.categoryBitMask = 0x00000001
+        self.spaceship.physicsBody?.collisionBitMask = 0x00000000
+        self.spaceship.physicsBody?.contactTestBitMask = 0x00011100
+        self.spaceship.physicsBody?.affectedByGravity = false
+        self.spaceship.physicsBody?.isDynamic = false
+    }
+
     private func cleanPastShoots() {
         for node in self.children {
-            guard node.name == "shot" || node.name == "enemy" || node.name == "meteorite" || node.name == "powerUp" else { continue }
+            guard node.name == "shot" || node.name == "enemy" ||
+                    node.name == "meteorite" || node.name == "powerUp" else { continue }
             if node.position.x > self.size.height/2 + 200 || node.position.x < -self.size.height/2 - 200 {
                 node.removeFromParent()
             }
@@ -207,6 +228,8 @@ class GameScene: SKScene {
         }
         self.enemyTimer?.invalidate()
         self.enemyTimer = nil
+        self.powerUpTimer?.invalidate()
+        self.powerUpTimer = nil
     }
 
     func createGameOverStats() {

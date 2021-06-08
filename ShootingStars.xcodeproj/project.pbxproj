@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EF0E74BE264AF1F500FFD63C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = EF0E74BD264AF1F500FFD63C /* GameScene.sks */; };
+		EF68FEDA266FE9700086B66F /* BotTerrain.sks in Resources */ = {isa = PBXBuildFile; fileRef = EF68FED9266FE9700086B66F /* BotTerrain.sks */; };
+		EF68FEDC266FEAFB0086B66F /* TopTerrain.sks in Resources */ = {isa = PBXBuildFile; fileRef = EF68FEDB266FEAFB0086B66F /* TopTerrain.sks */; };
 		EF894C2C265A80E100BBD7DF /* GameScene+Collisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */; };
 		EF894C2F265D693A00BBD7DF /* CopperplateGothic Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF894C2E265D693A00BBD7DF /* CopperplateGothic Bold.ttf */; };
 		EF8B22AD263B24E8001093FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8B22AC263B24E8001093FB /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		EF0E74BD264AF1F500FFD63C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = ../../SpaceInvaders/SpaceInvaders/GameScene.sks; sourceTree = "<group>"; };
+		EF68FED9266FE9700086B66F /* BotTerrain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BotTerrain.sks; sourceTree = "<group>"; };
+		EF68FEDB266FEAFB0086B66F /* TopTerrain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TopTerrain.sks; sourceTree = "<group>"; };
 		EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameScene+Collisions.swift"; sourceTree = "<group>"; };
 		EF894C2E265D693A00BBD7DF /* CopperplateGothic Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CopperplateGothic Bold.ttf"; sourceTree = "<group>"; };
 		EF8B22A9263B24E8001093FB /* ShootingStars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShootingStars.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +93,8 @@
 				EF958FCC2641C66C009807DB /* SpaceShipModel.swift */,
 				EFBDDA19264AFD5F00832626 /* Stars.sks */,
 				EF894C2B265A80E100BBD7DF /* GameScene+Collisions.swift */,
+				EF68FED9266FE9700086B66F /* BotTerrain.sks */,
+				EF68FEDB266FEAFB0086B66F /* TopTerrain.sks */,
 			);
 			path = ShootingStars;
 			sourceTree = "<group>";
@@ -155,6 +161,8 @@
 				EFBDDA1A264AFD5F00832626 /* Stars.sks in Resources */,
 				EF0E74BE264AF1F500FFD63C /* GameScene.sks in Resources */,
 				EF8B22B8263B24E8001093FB /* Main.storyboard in Resources */,
+				EF68FEDA266FE9700086B66F /* BotTerrain.sks in Resources */,
+				EF68FEDC266FEAFB0086B66F /* TopTerrain.sks in Resources */,
 				EF8B22BA263B24E9001093FB /* Assets.xcassets in Resources */,
 				EF8B22B1263B24E8001093FB /* Actions.sks in Resources */,
 			);
